@@ -1,0 +1,5 @@
+# api
+flask==1.1.2
+
+# local path to random_forest_model package
+-e "C:\Users\kurti\Documents\Credit-Card-Fraud-Detection\packages\random_forest_model"

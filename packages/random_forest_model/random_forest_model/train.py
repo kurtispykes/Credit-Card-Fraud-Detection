@@ -28,6 +28,9 @@ def run_training() -> None:
     # fix typo in id columns of test data
     df_test = pp.rename_id_col(df_test)
 
+    # save training data
+    df_train.to_csv(config.TRAINING_DATA)
+
     # set predictors and target
     X = df_train.drop(config.TARGET, axis=1)
     y = df_train[config.TARGET]
@@ -41,9 +44,9 @@ def run_training() -> None:
         # label encoding for categorical features
         for c in config.CATEGORICAL_FEATURES:
             lbl = preprocessing.LabelEncoder()
-            X_train.loc[:, c] = X_train.loc[:, c].astype(str).fillna("NONE")
-            X_valid.loc[:, c] = X_valid.loc[:, c].astype(str).fillna("NONE")
-            df_test.loc[:, c] = df_test.loc[:, c].astype(str).fillna("NONE")
+            X_train.loc[:, c] = X_train.loc[:, c].astype(str)
+            X_valid.loc[:, c] = X_valid.loc[:, c].astype(str)
+            df_test.loc[:, c] = df_test.loc[:, c].astype(str)
             lbl.fit(X_train[c].values.tolist() +
                     X_valid[c].values.tolist() +
                     df_test[c].values.tolist())
@@ -56,8 +59,8 @@ def run_training() -> None:
 
         # modelling
         rf = ensemble.RandomForestClassifier(n_estimators=100, n_jobs=-1, verbose=True, random_state=24)
-        rf.fit(X_train.fillna(0), y_train)
-        preds = rf.predict_proba(X_valid.fillna(0))[:, 1]
+        rf.fit(X_train, y_train)
+        preds = rf.predict_proba(X_valid)[:, 1]
         _logger.info(f"Fold {fold} ROC_AUC Score: {metrics.roc_auc_score(y_valid, preds)}")
         dm.save_pipeline(save_file_name=f"{config.MODEL_NAME}{fold}_v", to_persist=rf)
 

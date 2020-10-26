@@ -1,7 +1,9 @@
 from flask import Blueprint, request, jsonify
-from random_forest_model.inference import predict
 
+from random_forest_model.inference import predict
+from random_forest_model import __version__ as _version
 from api.config import get_logger
+from api import __version__ as api_version
 
 _logger = get_logger(logger_name=__name__)
 
@@ -12,6 +14,12 @@ def health():
     if request.method == "GET":
         _logger.info("Health status ok")
         return "Working Fine"
+
+@prediction_app.route("/version", methods=["GET"])
+def version():
+    if request.method == "GET":
+        return jsonify({"model_version": _version,
+                        "api_version": api_version})
 
 @prediction_app.route("/v1/inference/random_forest_model", methods=['POST'])
 def inference():

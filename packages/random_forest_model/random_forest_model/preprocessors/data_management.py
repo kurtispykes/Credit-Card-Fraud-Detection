@@ -39,8 +39,14 @@ def merge_data(df1:pd.DataFrame, df2:pd.DataFrame, train_data:bool=True) -> None
     """Merge the data. If it is not train_data then we save to data file"""
     merged_df = df1.merge(df2, how="left", on=config.ID)
     merged_df = pp.rename_id_col(df= merged_df)
+    cat_cols = merged_df.select_dtypes(include=['object']).columns
+    num_cols = merged_df.select_dtypes(include=['number']).columns
     if train_data:
-       return merged_df
+        merged_df[cat_cols] = merged_df[cat_cols].fillna('NONE')
+        merged_df[num_cols] = merged_df[num_cols].fillna(0)
+        return merged_df
     else:
-       merged_df.to_csv(config.DATA_DIR / "test_df.csv", index=False)
-       return merged_df
+        merged_df[cat_cols] = merged_df[cat_cols].fillna('NONE')
+        merged_df[num_cols] = merged_df[num_cols].fillna(0)
+        merged_df.to_csv(config.TEST_DATA, index=False)
+        return merged_df

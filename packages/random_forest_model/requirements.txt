@@ -11,3 +11,6 @@ pytest==6.1.1
 # Packages
 setuptools==50.3.1
 wheel==0.35.0
+
+# Fetching datasets
+kaggle==1.5.9

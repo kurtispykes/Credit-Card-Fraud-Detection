@@ -17,7 +17,7 @@ jobs:
             ./scripts/fetch_kaggle_dataset.sh
             py.test -vv packages/random_forest_model/tests
 workflows:
-  version: 2
+  version: 1
   test-all:
     jobs:
       - test_random_forest_model

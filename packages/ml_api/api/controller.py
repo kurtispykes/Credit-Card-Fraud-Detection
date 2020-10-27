@@ -24,14 +24,18 @@ def version():
 @prediction_app.route("/v1/inference/random_forest_model", methods=['POST'])
 def inference():
     if request.method == 'POST':
+        # Extract post data from request body as json
         json_data = request.get_json()
         _logger.info(f'Inputs: {json_data}')
 
+        # Model prediction
         result = predict(input_data=json_data)
-        _logger.info(f'Outputs: {result}')
+        _logger.info(f"Outputs: {result}")
 
-        predictions = result.get('predictions')[0]
-        version = result.get('version')
+        # Convert numpy ndarray to list
+        predictions = result.get("predictions")[0]
+        version = result.get("version")
 
-        return jsonify({'predictions': predictions,
-                        'version': version})
+        # Return the response as JSON
+        return jsonify({"predictions": predictions,
+                        "version": version})

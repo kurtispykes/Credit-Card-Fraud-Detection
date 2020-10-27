@@ -1,6 +1,6 @@
 version: 1
 jobs:
-  test_regression_model:
+  test_random_forest_model:
     working_directory: ~/project
     docker:
       - image: circleci/python:3.8.6

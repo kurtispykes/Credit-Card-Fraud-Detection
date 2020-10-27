@@ -3,11 +3,7 @@ jobs:
   test_random_forest_model:
     working_directory: ~/project
     docker:
-<<<<<<< HEAD
-      - image: circleci/python:3.7.2
-=======
       - image: circleci/python:3.8.6
->>>>>>> 3cb06b40f4784395e96a99ce701cbb0988c1da85
     steps:
       - checkout
       - run:

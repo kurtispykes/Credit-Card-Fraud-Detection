@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-kaggle competitions download -c ieee-fraud-detection -p packages/random_forest_model/random_forest_model/input/
+wget "https://www.dropbox.com/s/a0jd4xlsqdloa1k/test_df.csv?" -O test_df.csv t-P packages/random_forest_model/random_forest_model/input/
+wget "https://www.dropbox.com/s/pcf72af8ywisai6/train_folds.csv?dl=0" -O train_folds.csv -P packages/random_forest_model/random_forest_model/input/

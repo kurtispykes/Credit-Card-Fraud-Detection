@@ -17,9 +17,9 @@ def read_all_data():
     test_identity = pd.read_csv(config.TEST_IDENTITY)
     return train_transactions, train_identity, test_transactions, test_identity
 
-def read_test_data():
+def read_test_data(nrows:int= None):
     """Read only the configures test file"""
-    test_data = pd.read_csv(config.TEST_DATA)
+    test_data = pd.read_csv(config.TEST_DATA, nrows=nrows)
     return test_data
 
 def save_pipeline(save_file_name: str, to_persist: str) -> None:

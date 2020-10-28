@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/project
     docker:
       - image: circleci/python:3.8.6
-    resource_class: large
+    resource_class: medium+
     steps:
       - checkout
       - run:
